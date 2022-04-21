@@ -1,0 +1,55 @@
+<div class="row mt-5">
+  <div class="col-sm-4 ml-2">
+    <div class="iniciar">
+      <button type="button" (click)="solicitarCruce()" class="btn btn-primary btn-custom"
+      [disabled]="isCurrentColorRed && tiempo > 0 || started">
+      Solicitar Cruce</button>
+
+      <button type="button" (click)="detener()" class="btn btn-secondary btn-custom"
+      [disabled]="!started">cancelar</button>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="container">
+      <div class="semaforo">
+        <span #red class="luces-circulo " color="red"></span>
+        <span #yellow class="luces-circulo" color="yellow"></span>
+        <span #green class="luces-circulo green" color="green"></span>
+      </div>
+      <div class="stick">
+        <div class="temporizador">
+          <div>{{tiempo}}</div>
+        </div>
+      </div>
+      <div class="floor"></div>
+    </div>
+  </div>
+  <div class="col-sm-5">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Pasos</th>
+          <th scope="col">Ubicación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of getHistorialPasos | paginate: { itemsPerPage: 5, currentPage: pagina }">
+          <td scope="col">{{item.pasos}}</td>
+          <td scope="col">{{item.ubicacion}}</td>
+        </tr>
+        <tr *ngIf="getHistorialPasos.length > 0">
+          <th>
+            <div>
+              Total Metros: {{geTotalMetros}}
+            </div>
+            <div>
+              Total Pasos: {{geTotalPasos}}
+            </div>
+          </th>
+        </tr>
+      </tbody>
+      <pagination-controls (pageChange)="pagina = $event" [maxSize]="5" previousLabel="Anterior" nextLabel="Siguiente">
+      </pagination-controls>
+    </table>
+  </div>
+</div>
