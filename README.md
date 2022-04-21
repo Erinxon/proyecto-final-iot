@@ -1,4 +1,4 @@
-# proyecto-final-iot
+# Cruce peatonal
 1) En el primer escenario, el usuario habilita desde una aplicación móvil la acción de iniciar el cruce peatonal, o cancelar la operación. En caso de que el semáforo esté en rojo, no será necesario este caso de uso.
 
 Una vez iniciada, el dispositivo de IOT, recibirá la señal, calculará la proximidad del usuario y en base a esta data, activará la señal de pare en el semáforo inteligente.
