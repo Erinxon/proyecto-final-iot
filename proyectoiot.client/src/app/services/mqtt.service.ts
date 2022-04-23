@@ -19,12 +19,12 @@ export class MqttService {
     });
   }
 
-  subscribeTopic(){
-    return this.mqttClient.subscribe('my/test/topic');
+  subscribeTopic(topic = 'my/test/topic'){
+    return this.mqttClient.subscribe(topic);
   }
 
-  publishMessage(message: string){
-    return this.mqttClient.publish('my/test/topic', message);
+  publishMessage(message: string, topic = 'my/test/topic'){
+    return this.mqttClient.publish(topic, message);
   }
 
   getMqttClient(){

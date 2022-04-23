@@ -33,11 +33,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of getHistorialPasos | paginate: { itemsPerPage: 5, currentPage: pagina }">
+        <tr *ngFor="let item of historialPasosCruzados | paginate: { itemsPerPage: 5, currentPage: pagina }">
           <td scope="col">{{item.pasos}}</td>
           <td scope="col">{{item.ubicacion}}</td>
         </tr>
-        <tr *ngIf="getHistorialPasos.length > 0">
+        <tr *ngIf="historialPasosCruzados.length > 0">
           <th>
             <div>
               Total Metros: {{geTotalMetros}}

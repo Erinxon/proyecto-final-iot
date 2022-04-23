@@ -11,12 +11,8 @@ import { connect, IClientOptions } from 'mqtt';
 import { environment } from 'src/environments/environment';
 import { MqttService } from './services/mqtt.service';
 import { ToastrService } from 'ngx-toastr';
-
-export interface Historial {
-  pasos: number;
-  ubicacion: string;
-  cruzado: boolean;
-}
+import { CruceService } from './services/cruce.service';
+import { Cruce } from './models/cruce.model';
 
 @Component({
   selector: 'app-root',
@@ -33,13 +29,37 @@ export class AppComponent implements OnInit, AfterViewChecked {
   @ViewChild('yellow') yellow: ElementRef | undefined;
   @ViewChild('green') green: ElementRef | undefined;
 
-  historialPasos: Historial[] = [];
+  historialPasosNoCruzados: any[] = [];
+
+  historialPasosCruzados: any[] = [];
 
   pagina: number = 1;
 
   constructor(private changeDetectorRef: ChangeDetectorRef, 
-    private mqttService: MqttService, private toastr: ToastrService) {
+    private mqttService: MqttService, private toastr: ToastrService,
+    private cruceService: CruceService) {
+      this.getCruces();
+  }
 
+  getCruces(){
+    this.cruceService.getCruces().subscribe((res: any) => {
+      this.historialPasosCruzados = res.data;
+      console.log(res.data)
+    }, error => {
+      this.toastr.error('Ocurrió un error al obtener los datos');
+    })
+  }
+
+  addCruce(cruce: Cruce[]){
+    this.cruceService.postCruce(cruce).subscribe((res: any) => {
+      if(!res.succeeded){
+        this.toastr.error('Ocurrió un error al guardar los datos');
+        return;
+      }
+      this.getCruces();
+    }, error => {
+      this.toastr.error('Ocurrió un error al guardar los datos');
+    })
   }
 
   ngAfterViewChecked(): void {
@@ -77,12 +97,22 @@ export class AppComponent implements OnInit, AfterViewChecked {
           this.mqttService.publishMessage('green');
           this.previousColor = 'green';
         } else if (this.isCurrentColoryellow) {
-          this.historialPasos = this.historialPasos.map((h) => {
+          const cruzados = this.historialPasosNoCruzados.filter(h => !h.cruzado)
+          .map((h) => {
             return {
-              ...h,
-              cruzado: true,
+              id: 0,
+              pasos: h.pasos,
+              ubicacion: h.ubicacion
             };
           });
+          this.historialPasosNoCruzados = this.historialPasosNoCruzados.filter(h => !h.cruzado)
+          .map((h) => {
+            return {
+             ...h,
+             cruzado: true
+            };
+          });
+          this.addCruce(cruzados);
           this.mqttService.publishMessage('yellow');
         } else {
           this.mqttService.publishMessage('red');
@@ -137,6 +167,7 @@ export class AppComponent implements OnInit, AfterViewChecked {
     }
   }
 
+
   addColor(color: any) {
     if (color === 'green') {
       const green = this.green?.nativeElement.classList as DOMTokenList;
@@ -158,7 +189,7 @@ export class AppComponent implements OnInit, AfterViewChecked {
     this.tiempo -= 2;
     this.tiempo = this.tiempo < 0 ? 0 : this.tiempo;
     const paso = {
-      id: this.historialPasos.length + 1,
+      id: this.historialPasosCruzados.length + 1,
       pasos: 10,
       ubicacion:
         Math.floor(Math.random() * 255) +
@@ -171,24 +202,20 @@ export class AppComponent implements OnInit, AfterViewChecked {
         Math.floor(Math.random() * 255),
       cruzado: false,
     };
-    this.historialPasos.push(paso);
+    this.historialPasosNoCruzados.push(paso);
   }
 
   detener() {
     this.mqttService.publishMessage('stop');
   }
 
-  get getHistorialPasos() {
-    return this.historialPasos.filter((h) => h.cruzado);
-  }
-
   get geTotalPasos() {
-    return this.getHistorialPasos.reduce((total, h) => total + h.pasos, 0);
+    return this.historialPasosCruzados.reduce((total, h) => total + h.pasos, 0);
   }
 
   get geTotalMetros() {
     return (
-      this.getHistorialPasos.reduce((total, h) => total + h.pasos, 0) * 0.1
+      this.historialPasosCruzados.reduce((total, h) => total + h.pasos, 0) * 0.1
     );
   }
 }

@@ -13,7 +13,8 @@ export const environment = {
     password: 'Equipo1iot',
     clean:true
   },
-  connectUrl: 'wss://6436817f2603402d9cb925eb1359e52a.s2.eu.hivemq.cloud:8884/mqtt'
+  connectUrl: 'wss://6436817f2603402d9cb925eb1359e52a.s2.eu.hivemq.cloud:8884/mqtt',
+  apiUrl: 'https://localhost:44392/api'
 };
 
 /*
