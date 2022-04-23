@@ -41,7 +41,7 @@ namespace proyectoiot.server
             });
             services.AddDbContext<CruceDbContext>(option =>
             {
-                option.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));             
+                option.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));             
             });
             services.AddScoped<ICruceServices, CruceServices>();
         }
