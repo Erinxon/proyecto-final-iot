@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "cf8e3c5e-fe5d-4c72-a014-8aa6a331b4d5": {
+      "ProjectGuid": "cf8e3c5e-fe5d-4c72-a014-8aa6a331b4d5",
+      "DisplayName": "proyectoiot.server",
+      "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 1
+}
