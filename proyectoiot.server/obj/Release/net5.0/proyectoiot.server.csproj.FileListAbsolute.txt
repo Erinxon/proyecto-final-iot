@@ -1,0 +1,7 @@
+C:\Users\Erinxon\Desktop\Proyecto Final\proyectoiot.server\obj\Release\net5.0\proyectoiot.server.csproj.AssemblyReference.cache
+C:\Users\Erinxon\Desktop\Proyecto Final\proyectoiot.server\obj\Release\net5.0\proyectoiot.server.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Erinxon\Desktop\Proyecto Final\proyectoiot.server\obj\Release\net5.0\proyectoiot.server.AssemblyInfoInputs.cache
+C:\Users\Erinxon\Desktop\Proyecto Final\proyectoiot.server\obj\Release\net5.0\proyectoiot.server.AssemblyInfo.cs
+C:\Users\Erinxon\Desktop\Proyecto Final\proyectoiot.server\obj\Release\net5.0\proyectoiot.server.csproj.CoreCompileInputs.cache
+C:\Users\Erinxon\Desktop\Proyecto Final\proyectoiot.server\obj\Release\net5.0\proyectoiot.server.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Erinxon\Desktop\Proyecto Final\proyectoiot.server\obj\Release\net5.0\proyectoiot.server.MvcApplicationPartsAssemblyInfo.cache
